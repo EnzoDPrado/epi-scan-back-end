@@ -1,0 +1,9 @@
+path: dataset_1
+train: images
+val: images
+
+names:
+  0: helmet
+  1: vest
+  2: head
+  3: person

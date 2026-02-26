@@ -1,0 +1,11 @@
+uvicorn
+bcrypt
+pydantic[email]
+sqlalchemy
+alembic
+psycopg2-binary
+python-jose
+ultralytics
+fastapi
+dotenv
+python-multipart
