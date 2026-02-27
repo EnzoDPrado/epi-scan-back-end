@@ -1,7 +1,7 @@
 from fastapi import Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-from app.application.services.auth.auth_service import AuthService
+from app.application.services.auth_service import AuthService
 from app.domain.exceptions.unauthorized_exception import UnauthorizedException
 
 security = HTTPBearer()

@@ -1,6 +1,6 @@
 from app.domain.entities.user import User
 from app.domain.repositories.user_repository import UserRepository
-from app.application.services.auth.auth_service import AuthService
+from app.application.services.auth_service import AuthService
 from app.domain.exceptions.unauthorized_exception import UnauthorizedException
 import bcrypt
 

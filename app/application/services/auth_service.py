@@ -41,5 +41,3 @@ class AuthService():
 
     def _generateExpirationTime(self, hours: int):
         return datetime.now() + timedelta(hours)
-
-

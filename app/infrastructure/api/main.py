@@ -5,6 +5,9 @@ from app.infrastructure.controllers import user_controller, epi_controller
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.domain.exceptions.business_rule_exception import BusinessRuleException
 from app.domain.exceptions.unauthorized_exception import UnauthorizedException
+from app.application.utils.ai_utils import organize_ai_train_folders, ai_train
+from app.application.services.yolo_service import YoloService
+
 
 # SERVER CONFIG
 app = FastAPI()
@@ -12,6 +15,15 @@ app = FastAPI()
 # ROUTES
 app.include_router(user_controller.router)
 app.include_router(epi_controller.router)
+
+
+# ORGANIZE AI FOLDERS
+# organize_ai_train_folders()
+
+
+# AI TRAIN
+# ai_train()
+
 
 # ERROR HANDLERS
 @app.exception_handler(RequestValidationError)

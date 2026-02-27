@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.application.dto.user.create_user_dto import CreateUserDTO
 from app.application.dto.user.auth_user_dto import AuthUserDTO
-from app.application.services.auth.auth_service import AuthService
+from app.application.services.auth_service import AuthService
 from app.application.use_cases.user.auth_user import AuthUser
 from app.application.use_cases.user.create_user import CreateUserUseCase
 from app.application.use_cases.user.validate_exists_user_by_email import ValidateExistsUserByEmail

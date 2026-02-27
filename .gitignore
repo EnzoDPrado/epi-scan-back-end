@@ -3,3 +3,7 @@
 .vscode
 venv
 dataset_1
+runs
+yolo*.pt
+__pycache__/
+*.pyc
