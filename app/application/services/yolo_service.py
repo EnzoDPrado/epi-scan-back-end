@@ -1,16 +1,13 @@
 from ultralytics import YOLO
 import os
-
+import cv2
 
 class YoloService:
 
     def __init__(self, model_path: str = "yolov8n.pt"):
         self.model = YOLO(model_path)
 
-    def detect(self, image_name: str):
-        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
-        image_path = os.path.join(base_dir, "uploads", image_name)
-
+    def detect(self, image_path: str):
         results = self.model(image_path)
 
         output = []
@@ -22,5 +19,9 @@ class YoloService:
                     "confidence": float(box.conf[0]),
                     "bbox": box.xyxy[0].tolist()
                 })
+        annotated_frame = r.plot()
 
-        return output
+        _, buffer = cv2.imencode(".jpg", annotated_frame)
+        image_bytes = buffer.tobytes()
+
+        return output, image_bytes

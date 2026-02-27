@@ -9,3 +9,4 @@ ultralytics
 fastapi
 dotenv
 python-multipart
+pathlib
