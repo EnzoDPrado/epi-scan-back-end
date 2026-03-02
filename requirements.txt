@@ -10,3 +10,4 @@ fastapi
 dotenv
 python-multipart
 pathlib
+fastapi

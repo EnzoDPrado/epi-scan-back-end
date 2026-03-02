@@ -15,7 +15,7 @@ async def scan_epi(
     user = Depends(auth_dependency)
 ):
     upload_file_use_case = UploadFileUseCase()
-    yolo_service = YoloService("runs/detect/train/weights/last.pt")
+    yolo_service = YoloService("runs/detect/train/weights/best.pt")
     scan_epi_use_case = ScanEpiUseCase(upload_file_use_case, yolo_service)
 
     detections, image_bytes = scan_epi_use_case.execute(file)

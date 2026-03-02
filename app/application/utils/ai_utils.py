@@ -2,7 +2,7 @@ from ultralytics import YOLO
 import os
 import shutil
 import random
-    
+
 base_script_path = os.path.dirname(os.path.abspath(__file__))
 root_path = os.path.abspath(os.path.join(base_script_path, "../../../"))
 
@@ -16,7 +16,7 @@ def ai_train():
         data=data_yaml,
         epochs=50,
         imgsz=640,
-        batch=32,   
+        batch=16,   
         device=0
     )
     print("--------- AI TRAINED WITH SUCCESS ---------")
