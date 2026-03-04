@@ -34,6 +34,7 @@ class AuthService():
     def _genPayload(self, user: User):
         return {
             "id": str(user.id),
+            "name": user.name,
             "email": user.email,
             "deleted_at": user.deleted_at,
             "exp": self._generateExpirationTime(2)

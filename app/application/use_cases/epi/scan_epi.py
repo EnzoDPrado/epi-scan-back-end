@@ -13,17 +13,18 @@ class ScanEpiUseCase :
         self.upload_file_use_case = upload_file_use_case
         self.yolo_service = yolo_service
 
-    def execute(self, file: UploadFile = File(...)):
+    async def execute(self, file: UploadFile = File(...)):
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../"))
         upload_dir = f"{base_dir}/uploads"
 
-        file_name = self.upload_file_use_case.execute(upload_dir, file)
+        file_name = await self.upload_file_use_case.execute(upload_dir, file)
         image_path = f"{upload_dir}/{file_name}"
 
         try :
             detections, image_bytes = self.yolo_service.detect(image_path)
             return detections, image_bytes
         except Exception as e:
+            print(e)
             raise BusinessRuleException("Error detecting epi on image")
         finally:
             if os.path.exists(image_path):

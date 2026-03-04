@@ -16,7 +16,7 @@ def ai_train():
         data=data_yaml,
         epochs=50,
         imgsz=640,
-        batch=16,   
+        batch=16,
         device=0
     )
     print("--------- AI TRAINED WITH SUCCESS ---------")

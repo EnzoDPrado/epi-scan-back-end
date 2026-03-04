@@ -18,7 +18,7 @@ async def scan_epi(
     yolo_service = YoloService("runs/detect/train/weights/best.pt")
     scan_epi_use_case = ScanEpiUseCase(upload_file_use_case, yolo_service)
 
-    detections, image_bytes = scan_epi_use_case.execute(file)
+    detections, image_bytes = await scan_epi_use_case.execute(file)
 
     return Response(
         content=image_bytes,
