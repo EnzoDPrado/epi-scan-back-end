@@ -1,9 +1,8 @@
 from fastapi import UploadFile, File
 from app.application.use_cases.epi.detect_epi import DetectEpiUseCase
 from app.application.use_cases.file.upload_file_on_local import UploadFileOnLocalUseCase
-from app.application.services.yolo_service import YoloService
+from app.domain.services.object_detection_service import ObjectDetectionService
 from app.application.use_cases.storage.upload_file_on_storage import UploadFileOnStorageUseCase
-from app.domain.exceptions.business_rule_exception import BusinessRuleException
 import os
 
 class ScanEpiUseCase :
@@ -11,11 +10,9 @@ class ScanEpiUseCase :
             self,
             detect_epi_use_case: DetectEpiUseCase,
             upload_file_use_case: UploadFileOnLocalUseCase,
-            yolo_service: YoloService,
             upload_file_on_storage_use_case: UploadFileOnStorageUseCase
         ):
         self.upload_file_use_case = upload_file_use_case
-        self.yolo_service = yolo_service
         self.upload_file_on_storage_use_case = upload_file_on_storage_use_case
         self.detect_epi_use_case = detect_epi_use_case
 

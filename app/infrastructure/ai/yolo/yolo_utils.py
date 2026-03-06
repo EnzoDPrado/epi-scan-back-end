@@ -4,7 +4,7 @@ import shutil
 import random
 
 base_script_path = os.path.dirname(os.path.abspath(__file__))
-root_path = os.path.abspath(os.path.join(base_script_path, "../../../"))
+root_path = os.path.abspath(os.path.join(base_script_path, "../../../../"))
 
 def ai_train():
     print("--------- STARTING AI TRAINING ---------")

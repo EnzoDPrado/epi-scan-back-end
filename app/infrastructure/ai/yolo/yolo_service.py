@@ -1,13 +1,13 @@
 from ultralytics import YOLO
-import os
 import cv2
 
-class YoloService:
+from app.domain.services.object_detection_service import ObjectDetectionService
 
+class YoloService(ObjectDetectionService):
     def __init__(self, model_path: str = "yolov8n.pt"):
         self.model = YOLO(model_path)
 
-    def detect(self, image_path: str):
+    def detect(self, image_path: str) -> tuple[list, bytes, str]:
         results = self.model(image_path)
 
         output = []
