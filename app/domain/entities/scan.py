@@ -1,12 +1,12 @@
 from sqlalchemy import Column, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
-from app.infrastructure.persistence.database import Base
+from app.infrastructure.persistence.database import base
 from datetime import datetime
 import uuid
 
 
-class Scan(Base):
+class Scan(base):
     __tablename__ = "scans"
     
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)

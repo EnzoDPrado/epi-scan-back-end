@@ -62,13 +62,13 @@ class ScanEpiUseCase :
                                 received_file_name: str
                                 ) -> tuple[str, str]:
         
-        received_file_url = self.upload_file_on_storage_use_case.upload(
+        received_file_url = self.upload_file_on_storage_use_case.execute(
             content_type=received_file_content_type,
             file_name=received_file_name,
             file_bytes=received_file_contents
         )
 
-        scanned_file_url = self.upload_file_on_storage_use_case.upload(
+        scanned_file_url = self.upload_file_on_storage_use_case.execute(
             content_type=scanned_file_content_type,
             file_name=scanned_file_name,
             file_bytes=scanned_file_contents

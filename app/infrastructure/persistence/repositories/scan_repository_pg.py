@@ -21,7 +21,7 @@ class ScanRepositoryPg(ScanRepository):
             self.db.rollback()
             raise e
         
-    def findByUserId(self, id: UUID) -> List[Scan]:
+    def find_by_user_id(self, id: UUID) -> List[Scan]:
         try:
             scans = self.db.query(Scan).filter(
                 Scan.user_id == id
@@ -32,7 +32,7 @@ class ScanRepositoryPg(ScanRepository):
             self.db.rollback()
             raise e
 
-    def findById(self, id: UUID) -> Scan:
+    def find_by_id(self, id: UUID) -> Scan:
         try:
             scan = self.db.query(Scan).filter(
                 Scan.id == id

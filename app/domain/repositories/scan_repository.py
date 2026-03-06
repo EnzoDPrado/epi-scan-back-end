@@ -10,11 +10,11 @@ class ScanRepository(ABC):
 
 
     @abstractmethod
-    def findByUserId(self, id: UUID) -> Scan:
+    def find_by_user_id(self, id: UUID) -> Scan:
         pass
 
     @abstractmethod
-    def findById(self, id: UUID) -> Scan:
+    def find_by_id(self, id: UUID) -> Scan:
         pass
 
     @abstractmethod

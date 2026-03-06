@@ -18,7 +18,7 @@ class UserRepositoryPg(UserRepository):
             self.db.rollback()
             raise e
         
-    def findById(self, id: UUID) -> User:
+    def find_by_id(self, id: UUID) -> User:
         try:
             user = self.db.query(User).filter(
                 User.id == id
@@ -29,7 +29,7 @@ class UserRepositoryPg(UserRepository):
             self.db.rollback()
             raise e
         
-    def findByEmail(self, email: str) -> User:
+    def find_by_email(self, email: str) -> User:
         try:
             user = self.db.query(User).filter(
                 User.email == email,

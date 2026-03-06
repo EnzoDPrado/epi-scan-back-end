@@ -10,7 +10,7 @@ class FindScanByIdUseCase:
 
     def execute(self, id: uuid.UUID) -> Scan:
         try:
-            scan = self.scan_repository.findById(id)
+            scan = self.scan_repository.find_by_id(id)
         finally:
             self.scan_repository.close()
 

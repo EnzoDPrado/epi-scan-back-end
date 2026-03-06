@@ -24,12 +24,12 @@ engine = create_engine(
     max_overflow=20
 )
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
+session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+base = declarative_base()
 
 
 def get_db() -> Generator[Session, None, None]:
-    db = SessionLocal()
+    db = session_local()
     try:
         yield db
     finally:

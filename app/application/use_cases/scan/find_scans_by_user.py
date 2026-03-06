@@ -10,6 +10,6 @@ class FindScansByUserUseCase:
 
     def execute(self, user_id: UUID) -> List[Scan]:
         try:
-            return self.scan_repository.findByUserId(user_id)
+            return self.scan_repository.find_by_user_id(user_id)
         finally:
             self.scan_repository.close()

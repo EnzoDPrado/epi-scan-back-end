@@ -6,11 +6,10 @@ class ValidateExistsUserByEmail():
         self.user_repository = user_repository
 
     def execute(self, email: str) -> bool :
-    
         exists = False
 
         try:
-            user = self.user_repository.findByEmail(email)
+            user = self.user_repository.find_by_email(email)
 
             exists = user is not None
         finally:

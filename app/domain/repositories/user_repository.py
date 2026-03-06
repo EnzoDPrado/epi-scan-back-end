@@ -8,11 +8,11 @@ class UserRepository(ABC):
         pass
 
     @abstractmethod
-    def findByEmail(self, email: str) -> User:
+    def find_by_email(self, email: str) -> User:
         pass
 
     @abstractmethod
-    def findById(self, id: UUID) -> User:
+    def find_by_id(self, id: UUID) -> User:
         pass
 
     @abstractmethod

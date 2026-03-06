@@ -13,11 +13,11 @@ load_dotenv()
 sys.path.append(str(Path(__file__).parent.parent))
 
 # Entities
-from app.infrastructure.persistence.database import Base
+from app.infrastructure.persistence.database import base
 from app.domain.entities.user import User
 from app.domain.entities.scan import Scan
 
-target_metadata = Base.metadata 
+target_metadata = base.metadata 
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

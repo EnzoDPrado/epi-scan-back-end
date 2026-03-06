@@ -10,7 +10,7 @@ class AuthUser():
         self.auth_service = auth_service
 
     def execute(self, email: str, password: str) :
-        user = self._findUserByEmail(email)
+        user = self._find_user_by_email(email)
 
         self._validate_password(password, user.password.encode())
 
@@ -26,8 +26,8 @@ class AuthUser():
             raise UnauthorizedException()
         
     
-    def _findUserByEmail(self, email: str) -> User:
-        user = self.user_repository.findByEmail(email)
+    def _find_user_by_email(self, email: str) -> User:
+        user = self.user_repository.find_by_email(email)
 
         if (user == None):
             raise UnauthorizedException()

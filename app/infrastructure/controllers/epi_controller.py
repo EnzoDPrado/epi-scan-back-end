@@ -5,6 +5,7 @@ from app.application.use_cases.epi.detect_epi import DetectEpiUseCase
 from app.application.use_cases.file.upload_file_on_local import UploadFileOnLocalUseCase
 from app.application.use_cases.epi.scan_epi import ScanEpiUseCase
 from app.application.use_cases.scan.create_scan import CreateScanUseCase
+from app.application.use_cases.storage.upload_file_on_storage import UploadFileOnStorageUseCase
 from app.infrastructure.ai.yolo.yolo_service import YoloService
 from app.infrastructure.persistence.repositories.scan_repository_pg import ScanRepositoryPg
 from app.infrastructure.persistence.database import get_db
@@ -29,13 +30,14 @@ async def scan_epi(
 
     storage_service = S3StorageService()
 
+    upload_file_on_storage_use_case = UploadFileOnStorageUseCase(storage_service)
     scan_repository = ScanRepositoryPg(db_session)
     create_scan_use_case = CreateScanUseCase(scan_repository)
 
     scan_epi_use_case = ScanEpiUseCase(
         detect_epi_use_case,
         upload_file_use_case,
-        storage_service,
+        upload_file_on_storage_use_case,
         create_scan_use_case,
     )
 
