@@ -13,7 +13,7 @@ from app.infrastructure.persistence.database import get_db
 router = APIRouter(prefix="/users", tags=["Users"])
 
 
-@router.post("")
+@router.post("", status_code = 201)
 def create_user(dto: CreateUserDTO, db_session: Session = Depends(get_db)):
 
     userRepository = UserRepositoryPg(db_session)

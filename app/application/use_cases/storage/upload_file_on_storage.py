@@ -1,3 +1,4 @@
+import uuid
 from app.domain.services.storage_service import StorageService
 
 class UploadFileOnStorageUseCase():

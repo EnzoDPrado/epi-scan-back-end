@@ -9,3 +9,7 @@ class StorageService(ABC):
     @abstractmethod
     def delete(self, file_name: str) -> None:
         pass
+
+    @abstractmethod
+    def exists(self, file_name: str) -> bool:
+        pass

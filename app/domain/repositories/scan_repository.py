@@ -12,3 +12,15 @@ class ScanRepository(ABC):
     @abstractmethod
     def findByUserId(self, id: UUID) -> Scan:
         pass
+
+    @abstractmethod
+    def findById(self, id: UUID) -> Scan:
+        pass
+
+    @abstractmethod
+    def delete(self, scan: Scan):
+        pass
+
+    @abstractmethod
+    def close(self):
+        pass

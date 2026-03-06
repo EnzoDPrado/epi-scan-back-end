@@ -15,7 +15,8 @@ class CreateScanUseCase:
         received_file_url: str,
         scanned_file_url: str,
         received_file_name: str,
-        storage_file_name: str,
+        original_file_name: str,
+        scanned_file_name: str,
     ) -> Scan:
         new_scan = Scan(
             id=uuid.uuid4(),
@@ -23,7 +24,8 @@ class CreateScanUseCase:
             received_file_url=received_file_url,
             scanned_file_url=scanned_file_url,
             received_file_name=received_file_name,
-            storage_file_name=storage_file_name,
+            original_file_name=original_file_name,
+            scanned_file_name=scanned_file_name,
             created_at=datetime.now(),
         )
 

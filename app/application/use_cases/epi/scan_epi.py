@@ -1,3 +1,4 @@
+import uuid
 from fastapi import UploadFile, File
 from app.application.use_cases.epi.detect_epi import DetectEpiUseCase
 from app.application.use_cases.file.upload_file_on_local import UploadFileOnLocalUseCase
@@ -29,27 +30,31 @@ class ScanEpiUseCase :
         image_path = f"{self.upload_dir}/{received_file_name}"
 
         detections, scanned_file_contents, scanned_file_content_type = self.detect_epi_use_case.execute(image_path)
+        scanned_file_name = f"{uuid.uuid4()}.jpg"
+
 
         received_file_url, scanned_file_url = self._upload_images_on_storage(
+            scanned_file_name,
             scanned_file_contents,
             scanned_file_content_type,
             file.content_type,       
             received_file_contents,  
             received_file_name,      
         )
-
         if user_id:
             self.create_scan_use_case.execute(
                 user_id=user_id,
                 received_file_url=received_file_url,
                 scanned_file_url=scanned_file_url,
-                received_file_name=file.filename,
-                storage_file_name=received_file_name
+                received_file_name=received_file_name,
+                scanned_file_name=scanned_file_name,
+                original_file_name=file.filename
             )
 
         return detections, scanned_file_contents
 
     def _upload_images_on_storage(self,
+                                scanned_file_name: str,
                                 scanned_file_contents: bytes,
                                 scanned_file_content_type: str,
                                 received_file_content_type: str,
@@ -65,7 +70,7 @@ class ScanEpiUseCase :
 
         scanned_file_url = self.upload_file_on_storage_use_case.upload(
             content_type=scanned_file_content_type,
-            file_name=".jpg",
+            file_name=scanned_file_name,
             file_bytes=scanned_file_contents
         )
 

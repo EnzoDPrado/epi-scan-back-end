@@ -31,6 +31,28 @@ class ScanRepositoryPg(ScanRepository):
         except Exception as e:
             self.db.rollback()
             raise e
+
+    def findById(self, id: UUID) -> Scan:
+        try:
+            scan = self.db.query(Scan).filter(
+                Scan.id == id
+            ).first()
+
+            return scan
+        except Exception as e:
+            self.db.rollback()
+            raise e
+        
+
+    def delete(self, scan: Scan):
+        try:
+            self.db.query(Scan).filter(
+                Scan.id == scan.id
+            ).delete()
+            self.db.commit()
+        except Exception as e:
+            self.db.rollback()
+            raise e
         
     def close(self):
         self.db.close()
