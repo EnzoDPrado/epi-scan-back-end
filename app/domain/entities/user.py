@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.orm import deferred
+from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 from app.infrastructure.persistence.database import Base
 from datetime import datetime
@@ -16,6 +17,7 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     deleted_at = Column(DateTime, nullable=True)
     
+    scans = relationship("Scan", back_populates="user")
     
     def to_dict(self):
         return {
