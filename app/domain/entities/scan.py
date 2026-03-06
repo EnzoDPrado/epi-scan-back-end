@@ -14,6 +14,7 @@ class Scan(Base):
     received_file_url = Column(String, nullable=False)
     scanned_file_url = Column(String, nullable=False)
     received_file_name = Column(String, nullable=False)
+    storage_file_name = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     
     user = relationship("User", back_populates="scans") 
@@ -25,5 +26,6 @@ class Scan(Base):
             "received_file_url": self.received_file_url,
             "scanned_file_url": self.scanned_file_url,
             "received_file_name": self.received_file_name,
+            "storage_file_name": self.storage_file_name,
             "created_at": self.created_at.isoformat() if self.created_at else None
         }

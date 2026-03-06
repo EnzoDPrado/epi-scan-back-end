@@ -3,6 +3,8 @@ from app.application.use_cases.epi.detect_epi import DetectEpiUseCase
 from app.application.use_cases.file.upload_file_on_local import UploadFileOnLocalUseCase
 from app.domain.services.object_detection_service import ObjectDetectionService
 from app.application.use_cases.storage.upload_file_on_storage import UploadFileOnStorageUseCase
+from app.application.use_cases.scan.create_scan import CreateScanUseCase
+from uuid import UUID
 import os
 
 class ScanEpiUseCase :
@@ -10,16 +12,18 @@ class ScanEpiUseCase :
             self,
             detect_epi_use_case: DetectEpiUseCase,
             upload_file_use_case: UploadFileOnLocalUseCase,
-            upload_file_on_storage_use_case: UploadFileOnStorageUseCase
+            upload_file_on_storage_use_case: UploadFileOnStorageUseCase,
+            create_scan_use_case: CreateScanUseCase
         ):
         self.upload_file_use_case = upload_file_use_case
         self.upload_file_on_storage_use_case = upload_file_on_storage_use_case
         self.detect_epi_use_case = detect_epi_use_case
+        self.create_scan_use_case = create_scan_use_case
 
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../"))
         self.upload_dir = f"{base_dir}/uploads"
 
-    async def execute(self, file: UploadFile = File(...)):
+    async def execute(self, file: UploadFile = File(...), user_id: UUID = None):
         received_file_contents = await self._read_file(file)
         received_file_name = self.upload_file_use_case.execute(self.upload_dir, received_file_contents, file)
         image_path = f"{self.upload_dir}/{received_file_name}"
@@ -34,8 +38,17 @@ class ScanEpiUseCase :
             received_file_name,      
         )
 
+        if user_id:
+            self.create_scan_use_case.execute(
+                user_id=user_id,
+                received_file_url=received_file_url,
+                scanned_file_url=scanned_file_url,
+                received_file_name=file.filename,
+                storage_file_name=received_file_name
+            )
+
         return detections, scanned_file_contents
-        
+
     def _upload_images_on_storage(self,
                                 scanned_file_contents: bytes,
                                 scanned_file_content_type: str,

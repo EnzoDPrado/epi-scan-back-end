@@ -15,6 +15,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 # Entities
 from app.infrastructure.persistence.database import Base
 from app.domain.entities.user import User
+from app.domain.entities.scan import Scan
 
 target_metadata = Base.metadata 
 
