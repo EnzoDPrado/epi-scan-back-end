@@ -5,38 +5,36 @@ from pathlib import Path
 from PIL import Image
 from io import BytesIO
 
+from app.application.utils.file_utils import generate_file_name
 from app.domain.exceptions.business_rule_exception import BusinessRuleException
 
-class UploadFileUseCase:
+class UploadFileOnLocalUseCase:
     def __init__(self):
         pass
 
-    async def execute(self, upload_dir: str, file: UploadFile = File(...)) :
-        await self._validate(file)
+    def execute(self, upload_dir: str, file_contents: bytes, file: UploadFile = File(...)):
+        self._validate(file, file_contents)
         try:
             upload_path = Path(upload_dir)
 
             if not os.path.exists(upload_dir):
                 os.mkdir(upload_dir)
 
-            file_path = upload_path / file.filename
+            file_name = generate_file_name(file.filename)
+
+            file_path = upload_path / file_name
 
             with file_path.open("wb") as buffer:
                 shutil.copyfileobj(file.file, buffer)
 
-            return file.filename
+            return file_name
         except Exception as e:
             raise Exception("Error while uploading image", e)
         
-        
-        
-    async def _validate(self, file: UploadFile) :
+    def _validate(self, file: UploadFile, file_contents: bytes) :
         self._validate_file_type(file)
-
-        contents = await file.read()
-        self._validate_image_resolution(contents)
-        self._validate_image_size(contents)
-        await file.seek(0)
+        self._validate_image_resolution(file_contents)
+        self._validate_image_size(file_contents)
 
     def _validate_file_type(self, file: UploadFile) :
         ALLOWED_TYPES = ["image/jpeg", "image/png"]
@@ -62,7 +60,6 @@ class UploadFileUseCase:
         if width > MAX_WIDTH or height > MAX_HEIGHT:
             raise BusinessRuleException(f"Resolução muito grande. Máximo permitido: {MAX_WIDTH} x {MAX_HEIGHT}")
         
-
         MIN_WIDTH = int(os.getenv("IMAGE_MIN_WIDTH"))
         MIN_HEIGHT = int(os.getenv("IMAGE_MIN_HEIGHT"))
 

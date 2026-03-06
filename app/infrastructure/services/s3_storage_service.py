@@ -2,6 +2,7 @@ import boto3
 import uuid
 import os
 
+from app.application.utils.file_utils import generate_file_name
 from app.domain.services.storage_service import StorageService
 
 class S3StorageService(StorageService):
@@ -17,8 +18,7 @@ class S3StorageService(StorageService):
         )
 
     def upload(self, file_bytes: bytes, file_name: str, content_type: str) -> str:
-        file_extension = file_name.split(".")[-1]
-        unique_file_name = f"{uuid.uuid4()}.{file_extension}"
+        unique_file_name = generate_file_name(file_name)
 
         self.s3_client.put_object(
             Bucket=self.bucket_name,

@@ -21,7 +21,17 @@ class YoloService:
                 })
         annotated_frame = r.plot()
 
-        _, buffer = cv2.imencode(".jpg", annotated_frame)
+        CONTENT_TYPE_MAP = {
+            "jpg": "image/jpeg",
+            "jpeg": "image/jpeg",
+            "png": "image/png",
+            "webp": "image/webp",
+        }
+
+        encode_format = ".jpg"
+        content_type = CONTENT_TYPE_MAP.get(encode_format.lstrip("."), "application/octet-stream")
+        _, buffer = cv2.imencode(encode_format, annotated_frame)
+
         image_bytes = buffer.tobytes()
 
-        return output, image_bytes
+        return output, image_bytes, content_type
